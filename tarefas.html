@@ -14,32 +14,39 @@
 
 </head>
 
-<body>
-
+<body class="bg-light">
     <div class="offcanvas offcanvas-start" id="demo" style="width: 250px; background-color: var(--bs-gray-200);">
         <div class="offcanvas-header">
-            <h4 class="offcanvas-title">Home</h4>
+            <div class="justify-content-center align-items-center">
+                <img src="./img/logo.png" alt="" class="img-fluid me-2" width="45" height="45">
+                <img src="./img/logo2.png" alt="" class="img-fluid" width="120" height="120">
+            </div>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/list_alt_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png" alt="Ícone de lista"
+                    <img src="./img/house.svg" alt="Ícone de lista"
+                    class='img-fluid' style="height: 20px; width: auto;">
+                    <a href="./index.html" class="nav-link ms-2">Home</a>
+                </li>
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/card-checklist.svg" alt="Ícone de lista"
                         class='img-fluid' style="height: 20px; width: auto;">
                     <a href="./tarefas.html" class="nav-link ms-2">Tarefas</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/inventory_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png" alt="Ícone de pasta"
+                    <img src="./img/easel.svg" alt="Ícone de projetor"
                         class='img-fluid' style="height: 20px; width: auto;">
                     <a href="" class="nav-link ms-2">Projetos</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/group_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png" alt="Ícone de usuários"
+                    <img src="./img/people.svg" alt="Ícone de usuários"
                         class='img-fluid' style="height: 20px; width: auto;">
                     <a href="./usuarios.html" class="nav-link ms-2">Usuários</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/article_person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png" alt="Ícone de documento"
+                    <img src="./img/person-vcard.svg" alt="Ícone de documento"
                         class='img-fluid' style="height: 20px; width: auto;">
                     <a href="./curriculo.html" class="nav-link ms-2">Currículo</a>
                 </li>
@@ -50,6 +57,9 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
             <ul class="navbar-nav">
+                <li>
+                    <img src="./img/logo.png" alt="logo" class="img-fluid me-2 ms-2" width="30" height="30">
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Home</a>
                 </li>
@@ -57,6 +67,9 @@
                     <a class="nav-link disabled" href="./tarefas.html">Tarefas</a>
                 </li>
             </ul>
+            <div class="me-2">
+                <img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24" height="24">
+            </div>
         </div>
     </nav>
 
@@ -64,7 +77,7 @@
     <div class="container mt-4 ">
         <div class="row justify-content-center">
             <div class="px-0 col-8 d-flex justify-content-between align-items-center">
-                <h3>Tarefas</h3>
+                <h4>Tarefas</h4>
                 <a href="./addtarefa.html" class='btn btn-success btn-block'>Nova tarefa</a>
             </div>
         </div>
@@ -75,7 +88,7 @@
             <div class="col-2"></div>
             <div class="col-8 card mb-4 mt-4">
                 <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
+                    <h5 class="card-title">Card title</h5>
                     <p class="card-text">03/02/2025 20:38</p>
                     <div class="d-flex">
                         <p class="card-text fw-bold">Descrição:</p>
@@ -94,8 +107,9 @@
                         <p class="card-text ms-2">Some example text. Some example text.</p>
                     </div>
                     <div class="text-end mt-3">
-                        <button class='btn btn-secondary btn-block me-sm-3'>Excluir</button>
-                        <button class='btn btn-primary btn-block'>Editar</button>
+                        <button type="button" class='btn btn-danger btn-block me-sm-3' data-bs-toggle="modal"
+                            data-bs-target="#myModal">Deletar</button>
+                        <a class='btn btn-primary btn-block' href="./editartarefa.html">Editar</a>
                     </div>
                 </div>
             </div>
@@ -104,7 +118,7 @@
             <div class="col-2"></div>
             <div class="col-8 card mb-4">
                 <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
+                    <h5 class="card-title">Card title</h5>
                     <p class="card-text">03/02/2025 20:38</p>
                     <div class="d-flex">
                         <p class="card-text fw-bold">Descrição:</p>
@@ -123,7 +137,8 @@
                         <p class="card-text ms-2">Some example text. Some example text.</p>
                     </div>
                     <div class="text-end mt-3">
-                        <button class='btn btn-secondary btn-block me-sm-3'>Excluir</button>
+                        <button type="button" class='btn btn-danger btn-block me-sm-3' data-bs-toggle="modal"
+                            data-bs-target="#myModal">Deletar</button>
                         <button class='btn btn-primary btn-block'>Editar</button>
                     </div>
                 </div>
@@ -133,7 +148,7 @@
             <div class="col-2"></div>
             <div class="col-8 card mb-4">
                 <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
+                    <h5 class="card-title">Card title</h5>
                     <p class="card-text">03/02/2025 20:38</p>
                     <div class="d-flex">
                         <p class="card-text fw-bold">Descrição:</p>
@@ -152,15 +167,31 @@
                         <p class="card-text ms-2">Some example text. Some example text.</p>
                     </div>
                     <div class="text-end mt-3">
-                        <button class='btn btn-secondary btn-block me-sm-3'>Excluir</button>
+                        <button type="button" class='btn btn-danger btn-block me-sm-3' data-bs-toggle="modal"
+                            data-bs-target="#myModal">Deletar</button>
                         <button class='btn btn-primary btn-block'>Editar</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-2"></div>
-
     </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Deletar tarefa</h4>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja deletar a tarefa?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deletar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
