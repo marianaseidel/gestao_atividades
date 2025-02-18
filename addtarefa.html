@@ -61,7 +61,7 @@
                     <img src="./img/logo.png" alt="logo" class="img-fluid me-2 ms-2" width="30" height="30">
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Home</a>
+                    <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="./tarefas.html">Tarefas</a>
@@ -86,8 +86,9 @@
                             <div class="row">
                                 <div class="col">
                                     <label for class="form-label">Título: </label>
-                                    <input type="text" class="form-control" id="name" name="name"
+                                    <input type="text" class="form-control" id="titulo" name="titulo"
                                         placeholder="Digite o título da tarefa" required>
+                                    <p id="texto-erro" class="small text-danger mt-2"></p>
                                 </div>
                             </div>
                             <div class="row my-3">
@@ -144,7 +145,8 @@
                             </div>
                             <div class="text-end mt-3">
                                 <a href="./tarefas.html" class='btn btn-secondary btn-block me-sm-3'>Cancelar</a>
-                                <button class='btn btn-success btn-block'>Salvar</button>
+                                <input type="button" class='btn btn-success btn-block' value="Salvar"
+                                    onClick="validarTitulo()" />
                             </div>
                         </form>
                     </div>
@@ -152,6 +154,26 @@
             </div>
             <div class="col-2"></div>
         </div>
+
+        <script>
+
+            function exibirMensagem(idParagrafo, mensagem) {
+                document.getElementById(idParagrafo).innerHTML = mensagem;
+            }
+
+            function validarTitulo() {
+                let titulo = document.getElementById('titulo').value;
+
+                if (titulo.trim() === '') {
+                    exibirMensagem('texto-erro', 'Por favor, preencha este campo.');
+                    document.getElementById('titulo').focus();
+                    return;
+                } else {
+                    exibirMensagem('texto-erro', '');
+                }
+            };
+
+        </script>
 </body>
 
 </html>
