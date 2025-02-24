@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas</title>
+    <title>Projetos</title>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
                 <li class="d-flex align-items-center mb-2">
                     <img src="./img/easel.svg" alt="Ícone de projetor" class='img-fluid'
                         style="height: 20px; width: auto;">
-                    <a href="./projeto.html" class="nav-link ms-2">Projetos</a>
+                    <a href="" class="nav-link ms-2">Projetos</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
                     <img src="./img/people.svg" alt="Ícone de usuários" class='img-fluid'
@@ -64,7 +64,7 @@
                     <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="./tarefas.html">Tarefas</a>
+                    <a class="nav-link disabled" href="./projeto.html">Projetos</a>
                 </li>
             </ul>
             <div class="me-2">
@@ -78,8 +78,8 @@
     <div class="container mt-5 ">
         <div class="row justify-content-center">
             <div class="px-0 col d-flex justify-content-between align-items-center">
-                <h4>Tarefas</h4>
-                <a href="./addtarefa.html" class='btn btn-success btn-block'>Nova tarefa</a>
+                <h4>Projetos</h4>
+                <a href="./addprojeto.html" class='btn btn-success btn-block'>Novo projeto</a>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row">
             <div class="col mb-4 mt-4" style="padding: 0">
-                <div class="row" id="corpo-tarefas">
+                <div class="row" id="corpo-projetos">
                 </div>
             </div>
         </div>
@@ -97,14 +97,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Deletar tarefa</h4>
+                    <h4 class="modal-title">Deletar projeto</h4>
                 </div>
                 <div class="modal-body">
-                    Tem certeza que deseja deletar a tarefa?
+                    Tem certeza que deseja deletar o projeto?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
+                    <button type="button" class="btn btn-danger">Deletar</button>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    A tarefa foi deletada com sucesso.
+                    O projeto foi deletado com sucesso.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" id="btn-fechar-modal"
@@ -129,6 +129,7 @@
     </div>
 
     <script>
+
         let gestores = {};
         function buscarUsuarios() {
             fetch('http://localhost:8081/usuarios/listar')
@@ -146,96 +147,78 @@
         document.addEventListener("DOMContentLoaded", function () {
             buscarUsuarios();
         });
-        console.log(gestores);
 
-        function listar_tarefas() {
-            const div = document.getElementById("corpo-tarefas");
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            const requestOptions = {
-                method: "GET",
-                headers: myHeaders,
-                redirect: "follow"
-            };
+        function listar_projetos() {
+            const div = document.getElementById("corpo-projetos");
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
 
-            fetch("http://localhost:8081/tarefas/listar", requestOptions)
+            fetch("http://localhost:8081/projetos")
                 .then((response) => response.json())
                 .then((dados) => {
-                    let corpo_tarefas = document.getElementById('corpo-tarefas');
-                    dados.forEach((tarefa) => {
-                        let nomeResponsavel;
-                        if (tarefa.responsavel && tarefa.responsavel.nome) {
-                            nomeResponsavel = tarefa.responsavel.nome;
-                        }
+                    if (Array.isArray(dados)) {
+                        let corpo_projetos = document.getElementById('corpo-projetos');
+                        dados.forEach((projeto) => {
 
-                        const dataCriacao = new Date(tarefa.dataCriacao);
-                        const dataFormatadaCriacao = dataCriacao.toLocaleDateString('pt-BR');
-                        const dataConclusao = new Date(tarefa.dataConclusao);
-                        const dataFormatadaConclusao = dataConclusao.toLocaleDateString('pt-BR')
+                            let nomeGestor;
+                            if (projeto.usuario && projeto.usuario.nome) {
+                                nomeGestor = projeto.usuario.nome;
+                            }
 
-                        let linha = document.createElement('div');
-                        linha.className = "col-md-6";
-                        linha.innerHTML = `
-                            <div class="card mb-4 shadow">
-                                <div class="card-body">
-                                    <h5 class="card-title">${tarefa.titulo}</h5>
-                                    <p class="card-text text-secondary mb-3">Criado em ${dataFormatadaCriacao}</p>
-                                    <div class="d-flex">
-                                        <p class="card-text fw-bold">Descrição:</p>
-                                        <p class="card-text ms-2">${tarefa.descricao}</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="card-text fw-bold">Status:</p>
-                                        <p class="card-text ms-2">${tarefa.status == 0 ? 'Planejada' : tarefa.status == 1 ? 'Em andamento' : 'Finalizada'}</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="card-text fw-bold">Atribuído à:</p>
-                                        <p class="card-text ms-2">${nomeResponsavel}</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="card-text fw-bold">Projeto:</p>
-                                        <p class="card-text ms-2">${tarefa.projeto}</p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="card-text fw-bold">Data de conclusão:</p>
-                                        <p class="card-text ms-2">${dataFormatadaConclusao}</p>
-                                    </div>
-                                    <div class="text-end mt-3">
-                                        <button type="button" class='btn btn-danger btn-block me-sm-3' data-bs-toggle="modal"
-                                            data-bs-target="#myModal" data-id="${tarefa.id}">Deletar</button>
-                                        <button class='btn btn-primary btn-block'>Editar</button>
+                            let linha = document.createElement('div');
+                            linha.className = "col-md-6";
+                            linha.innerHTML = `
+                                <div class="card mb-4 shadow">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-4">${projeto.nome}</h5>
+                                        <div class="d-flex flex-column mb-2">
+                                            <p class="card-text fw-bold mb-2">Descrição:</p>
+                                            <p class="card-text">${projeto.descricao}</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <p class="card-text fw-bold">Gestor:</p>
+                                            <p class="card-text ms-2">${nomeGestor}</p>
+                                        </div>
+                                        <div class="text-end mt-3">
+                                            <button type="button" class='btn btn-danger btn-block me-sm-3' data-bs-toggle="modal" data-bs-target="#myModal" data-id="${projeto.id}">Deletar</button>
+                                            <a class='btn btn-primary btn-block' href="./editarprojeto.html?id=${projeto.id}">Editar</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `;
-                        corpo_tarefas.appendChild(linha);
-                    });
+                            `;
+                            corpo_projetos.appendChild(linha);
+                        });
+                    } else {
+                        console.error('Resposta não é um array:', dados);
+                    }
                 })
                 .catch((error) => console.error(error));
-        };
+        }
+        listar_projetos();
 
         let deletarCard = null;
-        let tarefaId = null;
+        let projetoId = null;
 
         document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener("click", function (event) {
                 if (event.target.matches(".btn-danger[data-bs-toggle='modal']")) {
                     deletarCard = event.target.closest(".card");
-                    tarefaId = event.target.getAttribute("data-id");
+                    projetoId = event.target.getAttribute("data-id");
                 }
             });
 
             const modalDeleteButton = document.querySelector("#myModal .btn-danger");
 
             modalDeleteButton.addEventListener("click", function () {
-                if (tarefaId) {
-                    deletarProjeto(tarefaId);
+                if (projetoId) {
+                    deletarProjeto(projetoId);
                 }
             });
         });
 
         function deletarProjeto(id) {
-            fetch(`http://localhost:8081/tarefas/${id}`, {
+            fetch(`http://localhost:8081/projetos/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -243,7 +226,7 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error("Erro ao deletar tarefa");
+                        throw new Error("Erro ao deletar projeto");
                     }
                     return response.json();
                 })
@@ -252,21 +235,20 @@
                         deletarCard.remove();
                         deletarCard = null;
                     }
-                    tarefaId = null;
+                    projetoId = null;
 
                     var modalConfirmacao = bootstrap.Modal.getInstance(document.getElementById('myModal'));
                     modalConfirmacao.hide();
+
                     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                     successModal.show();
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2000);
+
                 })
                 .catch(error => console.error(error));
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            listar_tarefas();
+        document.getElementById("btn-fechar-modal").addEventListener("click", function () {
+            listar_projetos();
         });
 
 

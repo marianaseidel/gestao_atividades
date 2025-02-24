@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar projeto</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body class="bg-light">
+    <div class="offcanvas offcanvas-start" id="demo" style="width: 250px; background-color: var(--bs-gray-200);">
+        <div class="offcanvas-header">
+            <div class="justify-content-center align-items-center">
+                <img src="./img/logo.png" alt="" class="img-fluid me-2" width="45" height="45">
+                <img src="./img/logo2.png" alt="" class="img-fluid" width="120" height="120">
+            </div>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/house.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./index.html" class="nav-link ms-2">Home</a>
+                </li>
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/card-checklist.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./tarefas.html" class="nav-link ms-2">Tarefas</a>
+                </li>
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/easel.svg" alt="Ícone de projetor" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./projeto.html" class="nav-link ms-2">Projetos</a>
+                </li>
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/people.svg" alt="Ícone de usuários" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./usuarios.html" class="nav-link ms-2">Usuários</a>
+                </li>
+                <li class="d-flex align-items-center mb-2">
+                    <img src="./img/person-vcard.svg" alt="Ícone de documento" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./curriculo.html" class="nav-link ms-2">Currículo</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li>
+                    <img src="./img/logo.png" alt="logo" class="img-fluid me-2 ms-2" width="30" height="30">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./projeto.html">Projetos</a>
+                </li>
+            </ul>
+            <div class="me-2">
+                <a href="./login.html"><img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24"
+                        height="24"></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header fw-bold h5">
+                        Editar projeto
+                    </div>
+                    <div class="card-body">
+                        <form action>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="nome" class="form-label">Nome: </label>
+                                    <input type="text" class="form-control" id="nome" name="nome"
+                                        placeholder="Digite o nome do projeto" required>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="descricao" class="form-label">Descrição: </label>
+                                    <textarea class="form-control" rows="2" id="descricao"></textarea>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="responsavel_id" class="form-label">Gestor: </label>
+                                    <select class="form-select" id="responsavel_id">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-end mt-3">
+                                <button type="button" class='btn btn-secondary btn-block me-sm-3'
+                                    onclick="window.location.href='projeto.html'">Cancelar</button>
+                                <button type="button" class='btn btn-primary btn-block' id="btnAtualizar">Atualizar
+                                    dados</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Sucesso!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Dados alterados com sucesso.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="btn-fechar-modal"
+                            data-bs-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            const projetoId = getUrlParameter('id');
+            console.log("ID do projeto:", projetoId);
+
+            function buscarUsuario() {
+                const url = `http://localhost:8081/projetos/${projetoId}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('nome').value = data.nome;
+                        document.getElementById('descricao').value = data.descricao;
+                        const responsavelSelect = document.getElementById('responsavel_id');
+                        responsavelSelect.innerHTML = "";
+
+                        const option = document.createElement('option');
+                        option.value = data.usuario.id;
+                        option.textContent = data.usuario.nome;
+                        option.selected = true;
+                        responsavelSelect.appendChild(option);
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar projeto:", error);
+                        alert("Erro ao buscar projeto!");
+                    });
+            }
+
+            window.onload = buscarUsuario;
+
+            function atualizarProjeto(event) {
+                event.preventDefault();
+
+                const nome = document.getElementById('nome').value;
+                const descricao = document.getElementById('descricao').value;
+                const responsavelSelect = document.getElementById('responsavel_id');
+                const responsavel_id = responsavelSelect.value;
+
+                const projetoAtualizado = {
+                    nome,
+                    descricao,
+                    usuario: { id: parseInt(responsavel_id) }
+                };
+
+                fetch(`http://localhost:8081/projetos/${projetoId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(projetoAtualizado)
+                })
+                    .then(response => response.json()
+                        .then(data => ({ status: response.status, data })))
+                    .then(({ status, data }) => {
+                        if (status >= 200 && status < 300) {
+                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+                        } else {
+                            alert('Erro ao atualizar projeto: ' + (data.mensagem || "Erro desconhecido"));
+                            console.error('Erros:', data.erros);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao atualizar projeto:', error);
+                        alert('Erro ao atualizar projeto!');
+                    });
+            }
+
+            document.getElementById('btn-fechar-modal').addEventListener('click', function () {
+                window.location.href = 'projeto.html';
+            });
+            document.getElementById('btnAtualizar').addEventListener('click', atualizarProjeto);
+
+
+        </script>
+</body>
+
+</html>

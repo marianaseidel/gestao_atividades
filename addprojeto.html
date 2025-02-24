@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar tarefa</title>
+    <title>Adicionar projeto</title>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -64,7 +64,7 @@
                     <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#demo">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./tarefas.html">Tarefas</a>
+                    <a class="nav-link" href="./projeto.html">Projetos</a>
                 </li>
             </ul>
             <div class="me-2">
@@ -80,15 +80,15 @@
             <div class="col">
                 <div class="card shadow">
                     <div class="card-header fw-bold h5">
-                        Nova tarefa
+                        Novo projeto
                     </div>
                     <div class="card-body">
                         <form action>
                             <div class="row">
                                 <div class="col">
-                                    <label for="titulo" class="form-label">Título: </label>
-                                    <input type="text" class="form-control" id="titulo" name="titulo"
-                                        placeholder="Digite o título da tarefa" required>
+                                    <label for="nome" class="form-label">Nome: </label>
+                                    <input type="text" class="form-control" id="nome" name="nome"
+                                        placeholder="Digite o nome do projeto" required>
                                     <p id="texto-erro" class="small text-danger mt-2"></p>
                                 </div>
                             </div>
@@ -101,58 +101,16 @@
                             </div>
                             <div class="row my-3">
                                 <div class="col">
-                                    <label for="dataCriacao" class="form-label">Data de início: </label>
-                                    <input type="date" class="form-control" id="dataCriacao" name="dataCriacao"
-                                        required>
-                                    <p id="erro-data1" class="small text-danger mt-2"></p>
-
-                                </div>
-                                <div class="col">
-                                    <label for="dataConclusao" class="form-label">Data de conclusão: </label>
-                                    <input type="date" class="form-control" id="dataConclusao" name="dataConclusao"
-                                        required>
-                                    <p id="erro-data2" class="small text-danger mt-2"></p>
-
-                                </div>
-                            </div>
-                            <div class="row my-3">
-                                <div class="col">
-                                    <label for="responsavel" class="form-label">Responsável: </label>
-                                    <select class="form-select" id="responsavel">
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="projeto" class="form-label">Projeto: </label>
-                                    <select class="form-select" id="projeto">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row my-3">
-
-                                <div class="col">
-                                    <label for="status" class="form-label">Status: </label>
-                                    <select name="status" class="form-select" id="status">
-                                        <option value="-1">Selecione</option>
-                                        <option value="0">Planejada</option>
-                                        <option value="1">Em andamento</option>
-                                        <option value="2">Finalizada</option>
+                                    <label for="responsavel_id" class="form-label">Gestor: </label>
+                                    <select class="form-select" id="responsavel_id">
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="check1" name="option1"
-                                            value="something">
-                                        <label class="form-check-label">Definir lembrete</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-end mt-3">
-                                <a href="./tarefas.html" class='btn btn-secondary btn-block me-sm-3'>Cancelar</a>
+                            <div class="text-end mt-2">
+                                <a href="./projeto.html" class='btn btn-secondary btn-block me-sm-3'>Cancelar</a>
                                 <input type="button" class='btn btn-success btn-block' value="Salvar"
-                                    onClick="validarECadastrarTarefa()" />
+                                    onClick="validarECadastrarProjeto()" />
                             </div>
                         </form>
                     </div>
@@ -169,7 +127,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Tarefa cadastrada com sucesso.
+                        Projeto cadastrado com sucesso.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="btn-fechar-modal" data-bs-dismiss="modal"
@@ -188,7 +146,7 @@
                 fetch('http://localhost:8081/usuarios/listar')
                     .then(response => response.json())
                     .then(data => {
-                        const responsavelSelect = document.getElementById('responsavel');
+                        const responsavelSelect = document.getElementById('responsavel_id');
                         responsavelSelect.innerHTML = '<option value="-1">Selecione</option>';
 
                         data.forEach(usuario => {
@@ -203,62 +161,35 @@
                     });
             };
 
-            document.addEventListener('DOMContentLoaded', function () {
-                buscarProjetos();
-            });
-
-            let projetos = [];
-            let idProcurado;
-
-            function buscarProjetos() {
-                fetch('http://localhost:8081/projetos')
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        const responsavelSelect = document.getElementById('projeto');
-                        responsavelSelect.innerHTML = '<option value="-1">Selecione</option>';
-
-                        data.forEach(projeto => {
-                            idProcurado = projeto.id;
-                            const indice = data.findIndex(projeto => projeto.id === idProcurado);
-                            const option = document.createElement('option');
-                            option.value = projeto.id;
-                            option.textContent = projeto.nome;
-                            responsavelSelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erro ao buscar projetos:', error);
-                    });
-            };
-
-            function validarECadastrarTarefa() {
-                console.log("Validando e cadastrando tarefa...");
+            function validarECadastrarProjeto() {
+                console.log("Validando e cadastrando projeto...");
                 let tituloValido = validarTitulo();
                 let descricaoValida = validarDescricao();
-                let dataConclusaoValida = validarDataConclusao();
 
-                if (tituloValido && descricaoValida && dataConclusaoValida) {
-                    cadastrarTarefa();
+                if (tituloValido && descricaoValida) {
+                    cadastrarProjeto();
                 } else {
                     console.log("Validações falharam.");
                 }
             };
 
-            function cadastrarTarefa() {
-                const myObj = {
-                    "titulo": document.getElementById("titulo").value,
-                    "descricao": document.getElementById("descricao").value,
-                    "dataCriacao": document.getElementById("dataCriacao").value,
-                    "dataConclusao": document.getElementById("dataConclusao").value,
-                    "status": document.getElementById("status").value === "-1" ? null : document.getElementById("status").value,
-                    "responsavel": document.getElementById("responsavel").value === "-1" ? null : document.getElementById("responsavel").value,
-                    "projeto": document.getElementById("projeto").value === "-1" ? null : projetos[idProcurado]
-                };
-                const objSend = JSON.stringify(myObj);
-                console.log(myObj)
+            function cadastrarProjeto() {
 
-                fetch('http://localhost:8081/tarefas/cadastrar', {
+                const myObj = {
+                    "nome": document.getElementById("nome").value,
+                    "descricao": document.getElementById("descricao").value,
+                };
+
+                const responsavelId = document.getElementById("responsavel_id").value;
+                if (responsavelId !== "-1") {
+                    myObj.usuario = { id: parseInt(responsavelId) };
+                } else {
+                    myObj.usuario = null;
+                }
+
+                const objSend = JSON.stringify(myObj);
+
+                fetch('http://localhost:8081/projetos/cadastrar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -269,7 +200,7 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log('Resposta da API:', data);
-                        if (data.mensagem === "Tarefa cadastrada com sucesso.") {
+                        if (data.mensagem === "Projeto cadastrado com sucesso.") {
                             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                             successModal.show();
                         }
@@ -283,23 +214,27 @@
                             erros = "";
                         }
 
-                        exibir_mensagem('<strong>' + (data.mensagem || 'Erro desconhecido') + '</strong>' + erros);
+                        // exibir_mensagem('<strong>' + (data.mensagem || 'Erro desconhecido') + '</strong>' + erros);
                     })
                     .catch(error => {
                         console.error('Erro:', error);
                     });
             }
 
+            document.getElementById("btn-fechar-modal").addEventListener("click", function () {
+                location.reload();
+            });
+
             function exibirMensagem(idParagrafo, mensagem) {
                 document.getElementById(idParagrafo).innerHTML = mensagem;
             }
 
             function validarTitulo() {
-                let titulo = document.getElementById('titulo').value;
+                let titulo = document.getElementById('nome').value;
 
                 if (titulo.trim() === '') {
                     exibirMensagem('texto-erro', 'Por favor, preencha este campo.');
-                    document.getElementById('titulo').focus();
+                    document.getElementById('nome').focus();
                     return false;
                 } else {
                     exibirMensagem('texto-erro', '');
@@ -314,27 +249,6 @@
                     return false;
                 } else {
                     exibirMensagem('erro-descricao', '');
-                    return true;
-                }
-            };
-
-            function validarDataCriacao() {
-                let dataCriacao = document.getElementById('dataCriacao').value;
-                if (dataCriacao.trim() === '') {
-                    exibirMensagem('erro-data1', 'A data de início não pode estar vazia.');
-                    return false;
-                }
-                exibirMensagem('erro-data1', '');
-                return true;
-            };
-
-            function validarDataConclusao() {
-                let dataConclusao = document.getElementById('dataConclusao').value;
-                if (dataConclusao.trim() === '') {
-                    exibirMensagem('erro-data2', 'A data de conclusão não pode estar vazia.');
-                    return false;
-                } else {
-                    exibirMensagem('erro-data2', '');
                     return true;
                 }
             };

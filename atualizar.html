@@ -25,28 +25,28 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/house.svg" alt="Ícone de lista"
-                    class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/house.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./index.html" class="nav-link ms-2">Home</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/card-checklist.svg" alt="Ícone de lista"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/card-checklist.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./tarefas.html" class="nav-link ms-2">Tarefas</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/easel.svg" alt="Ícone de projetor"
-                        class='img-fluid' style="height: 20px; width: auto;">
-                    <a href="" class="nav-link ms-2">Projetos</a>
+                    <img src="./img/easel.svg" alt="Ícone de projetor" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./projeto.html" class="nav-link ms-2">Projetos</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/people.svg" alt="Ícone de usuários"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/people.svg" alt="Ícone de usuários" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./usuarios.html" class="nav-link ms-2">Usuários</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/person-vcard.svg" alt="Ícone de documento"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/person-vcard.svg" alt="Ícone de documento" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./curriculo.html" class="nav-link ms-2">Currículo</a>
                 </li>
             </ul>
@@ -67,12 +67,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./cadastrar.html">Cadastro</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="./buscar_atualizar.html">Atualizar cadastro</a>
-                </li>
             </ul>
             <div class="me-2">
-                <img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24" height="24">
+                <a href="./login.html"><img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24"
+                        height="24"></a>
             </div>
         </div>
     </nav>
@@ -81,40 +79,38 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header fw-bold h5">
                         Atualizar cadastro de usuário
                     </div>
                     <div class="card-body">
-                        <form action>
+                        <form action id="formEditar">
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">Nome: </label>
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Nome Sobrenome" required>
+                                    <label for="name" class="form-label">Nome: </label>
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                                 <div class="col">
-                                    <label for class="form-label">CPF: </label>
+                                    <label for="cpf" class="form-label">CPF: </label>
                                     <input type="number" class="form-control" id="cpf" name="cpf" maxlength="11"
-                                        placeholder="000.000.000-00" required>
+                                        required>
                                 </div>
                             </div>
                             <div class="row my-3">
                                 <div class="col">
 
-                                    <label for class="form-label">E-mail: </label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="exemplo@dominio.com" required>
+                                    <label for="email" class="form-label">E-mail: </label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="col">
-                                    <label for class="form-label">Data de nascimento: </label>
+                                    <label for="date" class="form-label">Data de nascimento: </label>
                                     <input type="date" class="form-control" id="date" name="date">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">Status: </label>
+                                    <label for="status" class="form-label">Status: </label>
                                     <select name="status" class="form-select" id="status">
                                         <option value="-1">Selecione</option>
                                         <option value="1">Ativo</option>
@@ -124,8 +120,10 @@
                                 </div>
                             </div>
                             <div class="text-end mt-3">
-                                <button type="button" class='btn btn-secondary btn-block me-sm-3'>Cancelar</button>
-                                <button type="button" class='btn btn-primary btn-block'>Atualizar dados</button>
+                                <button type="button" class='btn btn-secondary btn-block me-sm-3'
+                                    onclick="window.location.href='usuarios.html'">Cancelar</button>
+                                <button type="button" class='btn btn-primary btn-block' id="btnAtualizar">Atualizar
+                                    dados</button>
                             </div>
                         </form>
                     </div>
@@ -134,6 +132,109 @@
             <div class="col-2"></div>
         </div>
     </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Sucesso!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Dados alterados com sucesso.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btn-fechar-modal"
+                        data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const usuarioId = getUrlParameter('id');
+        let senhaAtual;
+
+        function buscarUsuario() {
+            const url = `http://localhost:8081/usuarios/${usuarioId}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('name').value = data.nome;
+                    document.getElementById('cpf').value = (data.cpf).replace(/\D/g, '');
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('date').value = data.dataNascimento;
+                    document.getElementById('status').value = data.status;
+                    senhaAtual = data.senha;
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar usuário:", error);
+                    alert("Erro ao buscar usuário!");
+                });
+        }
+
+        window.onload = buscarUsuario;
+
+        function formatarCPF(cpf) {
+            return cpf.replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        }
+
+        function atualizarUsuario(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('name').value;
+            const cpf = formatarCPF(document.getElementById('cpf').value);
+            const email = document.getElementById('email').value;
+            const dataNascimento = document.getElementById('date').value;
+            const status = document.getElementById('status').value;
+
+            const usuarioAtualizado = {
+                nome,
+                cpf,
+                email,
+                dataNascimento,
+                status,
+                senha: senhaAtual
+            };
+
+            fetch(`http://localhost:8081/usuarios/${usuarioId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuarioAtualizado)
+            })
+                .then(response => {
+                    return response.json().then(data => {
+                        if (response.ok) {
+                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+                        } else {
+                            alert('Erro ao atualizar usuário: ' + data.mensagem);
+                            console.error('Erros:', data.erros);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar usuário:', error);
+                    alert('Erro ao atualizar usuário!');
+                });
+        }
+
+        document.getElementById('btn-fechar-modal').addEventListener('click', function () {
+            window.location.href = 'usuarios.html';
+        });
+        document.getElementById('btnAtualizar').addEventListener('click', atualizarUsuario);
+
+    </script>
 
 </body>
 

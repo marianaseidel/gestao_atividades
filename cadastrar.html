@@ -39,7 +39,7 @@
                 <li class="d-flex align-items-center mb-2">
                     <img src="./img/easel.svg" alt="Ícone de projetor" class='img-fluid'
                         style="height: 20px; width: auto;">
-                    <a href="" class="nav-link ms-2">Projetos</a>
+                    <a href="./projeto.html" class="nav-link ms-2">Projetos</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
                     <img src="./img/people.svg" alt="Ícone de usuários" class='img-fluid'
@@ -70,12 +70,10 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="./cadastrar.html">Cadastro</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./buscareatualizar.html">Atualizar cadastro</a>
-                </li>
             </ul>
             <div class="me-2">
-                <img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24" height="24">
+                <a href="./login.html"><img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24"
+                        height="24"></a>
             </div>
         </div>
     </nav>
@@ -84,12 +82,12 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header fw-bold h5">
                         Cadastro de usuário
                     </div>
                     <div class="card-body">
-                        <form action>
+                        <form action id="formCadastro">
                             <div class="row">
                                 <div class="col-12">
                                     <p class="small">Preencha as informações abaixo para cadastrar um novo usuário no
@@ -98,50 +96,52 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">Nome: </label>
+                                    <label for="nome" class="form-label">Nome: </label>
                                     <input type="text" class="form-control" id="nome" name="nome"
                                         placeholder="Informe seu nome" required>
                                     <p id="texto-erro-1" class="small text-danger mt-2"></p>
                                 </div>
                                 <div class="col">
-                                    <label for class="form-label">CPF: </label>
+                                    <label for="cpf" class="form-label">CPF: </label>
                                     <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14"
-                                        placeholder="Informe seu CPF" required>
+                                        placeholder="xxx.xxx.xxx-xx" required>
                                     <p id="texto-erro-2" class="small text-danger mt-2"></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">E-mail: </label>
+                                    <label for="email" class="form-label">E-mail: </label>
                                     <input type="email" class="form-control" id="email" name="email"
                                         placeholder="exemplo@dominio.com" required>
                                     <p id="texto-erro-3" class="small text-danger mt-2"></p>
                                 </div>
                                 <div class="col">
-                                    <label for class="form-label">Data de nascimento: </label>
+                                    <label for="data" class="form-label">Data de nascimento: </label>
                                     <input type="date" class="form-control" id="data" name="data">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">Senha: </label>
+                                    <label for="senha" class="form-label">Senha: </label>
                                     <div class="row">
                                         <div class="col">
                                             <input type="password" class="form-control" id="senha" name="senha"
                                                 minlength="8" placeholder="Informe sua senha"
                                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"
-                                                required/>
+                                                required />
                                         </div>
                                         <div class="col-2">
-                                            <button class="btn btn-outline-secondary" type="button" onclick="mostrarSenha()">
-                                                <i class="bi bi-eye"></i>
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="mostrarSenha()"
+                                                style="border-color: var(--bs-secondary-bg-subtle);">
+                                                <i class="bi-eye"></i>
                                             </button>
                                         </div>
                                     </div>
                                     <p id="texto-erro-4" class="small text-danger mt-2"></p>
                                 </div>
                                 <div class="col">
-                                    <label for class="form-label">Confirme a senha: </label>
+                                    <label for="confirmeSenha" class="form-label">Confirme a senha: </label>
                                     <input type="password" class="form-control" id="confirmeSenha" name="confirmeSenha"
                                         minlength="8" placeholder="Repita sua senha"
                                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$"
@@ -169,17 +169,18 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <label for class="form-label">Status: </label>
+                                    <label for="status" class="form-label">Status: </label>
                                     <select name="status" class="form-select" id="status">
-                                        <option value="-1">Selecione</option>
+                                        <option value="" disabled selected>Selecione</option>
                                         <option value="1">Ativo</option>
                                         <option value="0">Inativo</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="text-end mt-3">
-                                <button class='btn btn-secondary btn-block me-sm-3'>Cancelar</button>
-                                <input type="button" class='btn btn-primary btn-block' onclick="validarForms()"
+                                <button class='btn btn-secondary btn-block me-sm-3'
+                                    onclick="window.location.href='usuarios.html'">Cancelar</button>
+                                <input type="button" class='btn btn-primary btn-block' onclick="validarECadastrar()"
                                     value="Enviar">
                             </div>
                         </form>
@@ -192,11 +193,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Sucesso!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    O usuário foi cadastrado com sucesso.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btn-fechar-modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        function validarECadastrar() {
+            validarForms();
+            cadastrar();
+        };
+
+        let ultimoIdCadastrado = 0;
 
         function cadastrar() {
+            // ultimoIdCadastrado++;
+            // const novoId = String(ultimoIdCadastrado).padStart(2, '0');
 
             const myObj = {
+                // "id": novoId,
                 "nome": document.getElementById("nome").value,
                 "cpf": document.getElementById("cpf").value,
                 "email": document.getElementById("email").value,
@@ -206,33 +233,43 @@
             };
             const objSend = JSON.stringify(myObj);
 
-            fetch('http://localhost:8082/usuarios/cadastrar', {
+            fetch('http://localhost:8081/usuarios/cadastrar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer seu_token_aqui' // Exemplo de cabeçalho de autorização
+                    'Authorization': 'Bearer seu_token_aqui'
                 },
                 body: objSend
             })
-                .then(response => { return response.json(); })
+                .then(response => {
+                    return response.json();
+                })
                 .then(data => {
                     console.log('Resposta da API:', data);
+                    if (data.mensagem === "Usuário cadastrado com sucesso.") {
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    }
                     let erros = "<br>";
                     for (var i = 0; i < data.erros.length; i++) {
-                        erros = erros + data.erros[i] + '<br>'
+                        erros = erros + data.erros[i] + '<br>';
                     }
-                    exibir_mensagem('<strong>' + data.mensagem + '</strong>' + erros)
+                    exibir_mensagem('<strong>' + data.mensagem + '</strong>' + erros);
                 })
                 .catch(error => {
                     console.error('Erro:', error);
                 });
+
+            document.getElementById("btn-fechar-modal").addEventListener("click", function () {
+                location.reload();
+            });
         }
 
         function mostrarSenha() {
             if (document.getElementById('senha').type == 'password') {
                 document.getElementById('senha').setAttribute('type', 'text');
             } else {
-                document.getElementById('senha').setAttribute('type', 'password')
+                document.getElementById('senha').setAttribute('type', 'password');
             }
         }
 
@@ -240,17 +277,12 @@
             document.getElementById(idParagrafo).innerHTML = mensagem;
         }
 
-        function verificarCPFIgual(cpf) {
-            let cpfNumerico = cpf.replace(/\D/g, '');
-            return cpfNumerico.split('').every(char => char === cpfNumerico[0]);
-        }
-
         function validarForms() {
             let nome = document.getElementById('nome').value;
             let email = document.getElementById('email').value;
             let cpf = document.getElementById('cpf').value;
             let senha = document.getElementById('senha').value;
-            let confirmarSenha = document.getElementById('confirmeSenha').value
+            let confirmarSenha = document.getElementById('confirmeSenha').value;
 
             const regexCPF = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
             const regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -279,8 +311,13 @@
                 exibirMensagem('texto-erro-1', '');
             }
 
+            function verificarCPFIgual(cpf) {
+                let cpfNumerico = cpf.replace(/\D/g, '');
+                return cpfNumerico.split('').every(char => char === cpfNumerico[0]);
+            }
+
             if (regexCPF.test(cpf) == false || verificarCPFIgual(cpf)) {
-                exibirMensagem('texto-erro-2', verificarCPFIgual(cpf) ? 'CPF inválido: todos os números são iguais.' : 'Informe o CPF no formato XXX.XXX.XXX-XX');
+                exibirMensagem('texto-erro-2', verificarCPFIgual(cpf) ? 'CPF inválido: todos os números são iguais.' : 'Informe o CPF no formato xxx.xxx.xxx-xx');
                 document.getElementById('cpf').focus();
                 return;
             } else {

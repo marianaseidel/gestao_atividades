@@ -25,28 +25,28 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav">
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/house.svg" alt="Ícone de lista"
-                    class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/house.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./index.html" class="nav-link ms-2">Home</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/card-checklist.svg" alt="Ícone de lista"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/card-checklist.svg" alt="Ícone de lista" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./tarefas.html" class="nav-link ms-2">Tarefas</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/easel.svg" alt="Ícone de projetor"
-                        class='img-fluid' style="height: 20px; width: auto;">
-                    <a href="" class="nav-link ms-2">Projetos</a>
+                    <img src="./img/easel.svg" alt="Ícone de projetor" class='img-fluid'
+                        style="height: 20px; width: auto;">
+                    <a href="./projeto.html" class="nav-link ms-2">Projetos</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/people.svg" alt="Ícone de usuários"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/people.svg" alt="Ícone de usuários" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./usuarios.html" class="nav-link ms-2">Usuários</a>
                 </li>
                 <li class="d-flex align-items-center mb-2">
-                    <img src="./img/person-vcard.svg" alt="Ícone de documento"
-                        class='img-fluid' style="height: 20px; width: auto;">
+                    <img src="./img/person-vcard.svg" alt="Ícone de documento" class='img-fluid'
+                        style="height: 20px; width: auto;">
                     <a href="./curriculo.html" class="nav-link ms-2">Currículo</a>
                 </li>
             </ul>
@@ -67,12 +67,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./cadastrar.html">Cadastro</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./buscareatualizar.html">Atualizar cadastro</a>
-                </li>
             </ul>
             <div class="me-2">
-                <img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24" height="24">
+                <a href="./login.html"><img src="./img/box-arrow-right.svg" alt="logo" class="img-fluid" width="24"
+                        height="24"></a>
             </div>
         </div>
     </nav>
@@ -90,8 +88,9 @@
                 <label for="search" class="form-label fw-bold">Buscar usuário:</label>
                 <div class="d-flex">
                     <input type="search" class="form-control me-2" id="search" name="search"
-                        placeholder="Insira a matrícula ou nome do usuário">
-                    <input type="button" value="Buscar" class="btn btn-secondary">
+                        placeholder="Insira o nome do usuário">
+                    <input type="button" value="Buscar" class="btn btn-secondary" id="buscarBtn"
+                        onclick="buscarUsuarios(document.getElementById('search').value)">
                 </div>
             </div>
         </div>
@@ -101,7 +100,8 @@
         <div class="row">
             <div class="col-0"></div>
             <div class="col">
-                <table class="table table-striped table-bordered rounded-2 overflow-hidden text-center">
+                <table class="table table-striped table-bordered rounded-2 overflow-hidden text-center"
+                    id="tabelaUsuarios">
                     <tr class="table-secondary">
                         <th>ID</th>
                         <th>Nome</th>
@@ -109,28 +109,8 @@
                         <th>Status</th>
                         <th class="w-25">Ações</th>
                     </tr>
-                    <tr>
-                        <td>sdasd</td>
-                        <td>asdasd</td>
-                        <td>asdasd</td>
-                        <td>asdasd</td>
-                        <td>
-                            <a href="./atualizar.html" class="me-sm-4"><img src="./img/pencil-square.svg" alt="Ícone de lápis" width="20"></a>
-                            <a href="./atualizar.html" data-bs-toggle="modal"
-                            data-bs-target="#myModal"><img src="./img/trash.svg" alt="Ícone de lixeira" width="20"></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>sdasd</td>
-                        <td>asdasd</td>
-                        <td>asdasd</td>
-                        <td>asdasd</td>
-                        <td>
-                            <a href="./atualizar.html" class="me-sm-4"><img src="./img/pencil-square.svg" alt="Ícone de lápis" width="20"></a>
-                            <a href="./atualizar.html" data-bs-toggle="modal"
-                            data-bs-target="#myModal"><img src="./img/trash.svg" alt="Ícone de lixeira" width="20"></a>
-                        </td>
-                    </tr>
+                    <tbody id="corpo-tabela">
+                    </tbody>
                 </table>
             </div>
             <div class="col-0"></div>
@@ -150,11 +130,195 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Deletar</button>
+                    <button type="button" class="btn btn-danger" id="btnDeletar"
+                        data-bs-dismiss="modal">Deletar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="resultadoBusca"></div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Sucesso!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    O usuário foi deletado com sucesso.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btn-fechar-modal"
+                        data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let usuarioIdParaDeletar = null;
+
+        function listar_usuarios() {
+            const div = document.getElementById("corpo-tabela");
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            const requestOptions = {
+                method: "GET",
+                headers: myHeaders,
+                redirect: "follow"
+            };
+
+            fetch("http://localhost:8081/usuarios/listar", requestOptions)
+                .then((response) => {
+                    return response.text()
+                })
+                .then((result) => {
+                    dados = JSON.parse(result)
+                    console.log(dados)
+                    let corpo_tabela = document.getElementById('corpo-tabela');
+                    for (var i = 0; i < dados.length; i++) {
+
+                        let linha = document.createElement('tr');
+                        let colunaId = document.createElement('td');
+                        colunaId.innerText = dados[i].id;
+                        let colunaNome = document.createElement('td');
+                        colunaNome.innerText = dados[i].nome;
+                        let colunaCpf = document.createElement('td');
+                        colunaCpf.innerText = dados[i].cpf;
+                        let colunaStatus = document.createElement('td');
+                        colunaStatus.innerText = (dados[i].status == 1) ? "Ativo" : "Inativo";
+
+                        let colunaLinks = document.createElement('td');
+                        let linkAlterar = document.createElement('a');
+                        let imgAlterar = document.createElement('img');
+                        linkAlterar.setAttribute("href", `./atualizar.html?id=${dados[i].id}`);
+                        linkAlterar.setAttribute("class", "me-sm-4");
+                        imgAlterar.setAttribute('src', "./img/pencil-square.svg");
+                        imgAlterar.setAttribute('alt', "Ícone de lápis");
+                        imgAlterar.setAttribute('width', "20");
+                        linkAlterar.appendChild(imgAlterar);
+
+                        let linkExcluir = document.createElement('a');
+                        let imgExcluir = document.createElement('img');
+
+                        linkExcluir.setAttribute("href", "./atualizar.html");
+                        linkExcluir.setAttribute("class", "me-sm-4");
+                        linkExcluir.setAttribute("data-bs-toggle", "modal");
+                        linkExcluir.setAttribute("data-bs-target", "#myModal");
+                        linkExcluir.setAttribute("onclick", `setUsuarioParaDeletar(${dados[i].id})`);
+                        imgExcluir.setAttribute('src', "./img/trash.svg");
+                        imgExcluir.setAttribute('alt', "Ícone de lixeira");
+                        imgExcluir.setAttribute('width', "20");
+                        linkExcluir.appendChild(imgExcluir);
+
+                        colunaLinks.appendChild(linkAlterar);
+                        colunaLinks.appendChild(linkExcluir);
+
+                        linha.appendChild(colunaId);
+                        linha.appendChild(colunaNome);
+                        linha.appendChild(colunaCpf);
+                        linha.appendChild(colunaStatus);
+                        linha.appendChild(colunaLinks);
+                        corpo_tabela.appendChild(linha);
+                    }
+                })
+                .catch((error) => console.error(error));
+        };
+
+        listar_usuarios();
+
+        function setUsuarioParaDeletar(id) {
+            usuarioIdParaDeletar = id;
+        }
+
+        function deletarUsuario(id) {
+            const url = `http://localhost:8081/usuarios/${id}`;
+
+            fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.mensagem === "Usuario removido") {
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    }
+
+                    if (!data.erros || Object.keys(data.erros).length === 0) {
+                        listar_usuarios();
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao excluir usuário:", error);
+                    alert("Erro ao excluir usuário!");
+                });
+        }
+
+        document.getElementById("btnDeletar").addEventListener("click", function () {
+            if (usuarioIdParaDeletar) {
+                deletarUsuario(usuarioIdParaDeletar);
+            } else {
+                alert("Erro: ID do usuário não encontrado!");
+            }
+        });
+
+        function buscarUsuarios(nome) {
+            const url = 'http://localhost:8081/usuarios/listar';
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (!nome) {
+                        alert('Por favor, insira um nome para buscar.');
+                        return;
+                    }
+
+                    const usuariosFiltrados = data.filter(usuario =>
+                        usuario.nome && usuario.nome.toLowerCase().includes(nome.toLowerCase())
+                    );
+
+                    const corpoTabela = document.getElementById('corpo-tabela');
+                    corpoTabela.innerHTML = '';
+
+                    if (usuariosFiltrados.length > 0) {
+                        usuariosFiltrados.forEach(usuario => {
+                            let linha = document.createElement('tr');
+
+                            linha.innerHTML = `
+                                <td>${usuario.id}</td>
+                                <td>${usuario.nome}</td>
+                                <td>${usuario.cpf}</td>
+                                <td>${usuario.status == 1 ? 'Ativo' : 'Inativo'}</td>
+                                <td>
+                                    <a href= "./atualizar.html?id=${usuario.id}" class="me-sm-4">
+                                        <img src="./img/pencil-square.svg" alt="Ícone de lápis" width=20>
+                                    </a>
+                                    <a href= "setUsuarioParaDeletar(${usuario.id})" class="me-sm-4">
+                                        <img src="./img/trash.svg" alt="Ícone de lixeira" width=20>
+                                    </a>
+                                </td>
+                            `;
+                            corpoTabela.appendChild(linha);
+                        });
+                    } else {
+                        alert('Nenhum usuário encontrado com esse nome.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar usuários:', error);
+                    alert('Erro ao buscar usuários!');
+                });
+        }
+
+    </script>
 
 </body>
 
